@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Додати новий фільм";
+}
+
+<div class="container mt-4" style="max-width: 600px;">
+    <h2>➕ Додати новий фільм до хмари</h2>
+    <hr />
+
+    <!-- Атрибут enctype="multipart/form-data" ОБЯЗАТЕЛЕН для загрузки файлов -->
+    <form asp-action="Create" method="post" enctype="multipart/form-data" class="mt-3">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Назва фільму</label>
+            <input type="text" name="title" id="title" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Опис фільму</label>
+            <textarea name="description" id="description" rows="4" class="form-control" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="videoFile" class="form-label">Відеофайл (.mp4)</label>
+            <input type="file" name="videoFile" id="videoFile" accept="video/mp4" class="form-control" required />
+            <div class="form-text text-muted">Файл буде автоматично та безпечно завантажено в Azure Blob Storage.</div>
+        </div>
+
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">🚀 Завантажити та зберегти</button>
+            <a asp-action="Index" class="btn btn-secondary">Назад до списку</a>
+        </div>
+    </form>
+</div>
