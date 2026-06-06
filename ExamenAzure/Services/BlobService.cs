@@ -1,10 +1,5 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Sas;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace ExamenAzure.Services
 {
@@ -15,7 +10,6 @@ namespace ExamenAzure.Services
 
         public BlobService(IConfiguration configuration)
         {
-            // Рядок підключення береться з конфігурації (локально або з App Settings в Azure)
             string connectionString = configuration.GetConnectionString("AzureBlobStorage")
                 ?? throw new ArgumentNullException("AzureBlobStorage connection string is missing.");
             _blobServiceClient = new BlobServiceClient(connectionString);
@@ -25,7 +19,6 @@ namespace ExamenAzure.Services
         {
             var containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
 
-            // Генеруємо унікальне ім'я файлу для запобігання перезапису
             string uniqueFileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
             var blobClient = containerClient.GetBlobClient(uniqueFileName);
 
@@ -47,7 +40,6 @@ namespace ExamenAzure.Services
                 throw new InvalidOperationException("BlobClient cannot generate SAS URI. Check connection string credentials.");
             }
 
-            // Налаштування SAS: тільки читання на 120 хвилин
             BlobSasBuilder sasBuilder = new BlobSasBuilder
             {
                 BlobContainerName = _containerName,

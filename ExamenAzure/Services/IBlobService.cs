@@ -1,7 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-
-namespace ExamenAzure.Services
+﻿namespace ExamenAzure.Services
 {
     public interface IBlobService
     {
